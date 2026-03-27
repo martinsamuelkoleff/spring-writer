@@ -2,6 +2,8 @@ package io.github.martinsamuelkoleff.spring_writer.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import io.github.martinsamuelkoleff.spring_writer.entities.enums.PostStatus;
@@ -42,7 +44,35 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "post_tags",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+    
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+    
+    
+    public Set<Tag> getTags() {
+		return tags;
+	}
+
+    public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+    
     public UUID getId() {
         return id;
     }
