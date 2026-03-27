@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/base :: layout(~{::title}, ~{::content}, ~{::styles})}">
+<head>
+<title>Spring Writer</title>
+
+<th:block th:fragment="styles">
+	<link rel="stylesheet" th:href="@{/css/admin-posts.css}" />
+</th:block>
+</head>
+<body>
+
+	<div th:fragment="content">
+	
+	<section class="posts-container">
+	<h2 class="section-title">Publicaciones</h2>
+
+	<div class="posts-list">
+		<article class="post-card" th:each="post : ${posts}">
+			<h3 class="post-title">
+				<a th:href="@{/admin/posts/{id}/edit(id=${post.id})}"
+					th:text="${post.title}"></a>
+			</h3>
+
+			<p class="post-excerpt" th:text="${post.excerpt}"></p>
+
+			<div class="post-meta">
+				<time th:text="${#temporals.format(post.publishedAt, 'dd MMM yyyy')}"
+					th:datetime="${post.publishedAt}"></time>
+
+				<span th:if="${post.category != null}"
+					th:text="${post.category.name}"></span>
+			</div>
+			
+		<form th:id="post-delete"  th:action="@{/admin/posts/{id}/delete(id=${post.id})}" method="post"
+		onsubmit="return confirm('¿Estás seguro de que querés eliminar este post?');"
+		>
+		    <button  type="submit" class="post-delete">Eliminar</button>
+		</form>
+			
+		</article>
+	</div>
+
+	<p th:if="${posts.isEmpty()}">No hay publicaciones todavía.</p>
+
+	<nav class="pagination" th:if="${posts.totalPages > 1}">
+		<a th:if="${!posts.first}"
+			th:href="@{/admin/posts(page=${posts.number - 1})}">
+			Anterior
+		</a>
+
+		<span th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
+			<a th:href="@{/admin/posts(page=${i})}"
+				th:text="${i + 1}"
+				th:classappend="${i == posts.number} ? 'active'"></a>
+		</span>
+
+		<a th:if="${!posts.last}"
+			th:href="@{/admin/posts(page=${posts.number + 1})}">
+			Siguiente;
+		</a>
+	</nav>
+</section>
+	</div>
+
+</body>
+</html>

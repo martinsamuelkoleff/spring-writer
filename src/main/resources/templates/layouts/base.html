@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, content, styles)">
+<head>
+   	<title th:replace="${title}">Spring Writer</title>
+   	    <link rel="icon" type="image/x-icon" href="/images/spring-writer-logo.png">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+	<th:block th:replace="${styles}"></th:block>
+</head>
+<body>
+
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <main th:replace="${content}"></main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

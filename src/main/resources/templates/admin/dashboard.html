@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/base :: layout(~{::title}, ~{::content}, ~{::styles})}">
+<head>
+<title>Spring Writer</title>
+
+<th:block th:fragment="styles">
+	<link rel="stylesheet" th:href="@{/css/admin-dashboard.css}" />
+</th:block>
+</head>
+<body>
+
+	<div th:fragment="content">
+		<section>
+			<h1>Bienvenido, administrador!</h1>
+				
+			<nav id="nav-admin">
+				<a th:href="@{/admin/posts}">Administrar posts</a>
+				<a th:href="@{/admin/posts/new}">Crear un nuevo post</a>
+				<a th:href="@{/logout}">Logout</a>
+			</nav>
+		</section>
+	</div>
+
+</body>
+</html>

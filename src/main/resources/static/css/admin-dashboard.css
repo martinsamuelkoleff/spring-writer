@@ -1,0 +1,9 @@
+section {
+    padding: 1em 1.5em 1em;
+}
+
+#nav-admin {
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/base :: layout(~{::title}, ~{::content}, ~{::styles})}">
+<head>
+<title>Blog - Spring Writer</title>
+<th:block th:fragment="styles">
+	<link rel="stylesheet" th:href="@{/css/list.css}" />
+</th:block>
+</head>
+<body>
+
+	<div th:fragment="content">
+		
+		
+		
+		<section class="blog-header">
+			<h1>Blog</h1>
+		</section>
+
+		<section>
+		
+		<div th:if="${filtroActivo == null}" class="filters">
+			
+			<span>Filtros</span>
+		
+			<select
+				th:id="select-cat"
+				onchange="if(this.value) window.location.href='/blog/category/'+this.value">
+				<option value="">Categoría...</option>
+				<option th:each="cat : ${categories}" th:value="${cat.slug}"
+					th:text="${cat.name}"
+					th:selected="${filtroActivo != null and filtroActivo.contains(cat.name)}">
+				</option>
+			</select> 
+			<select
+			th:id="select-tag"
+				onchange="if(this.value) window.location.href='/blog/tag/'+this.value">
+				<option value="">Tag...</option>
+				<option th:each="tag : ${tags}" th:value="${tag.slug}"
+					th:text="${tag.name}"
+					th:selected="${filtroActivo != null and filtroActivo.contains(tag.name)}">
+				</option>
+			</select>
+		</div>
+		
+		<div th:if="${filtroActivo != null}">
+			<p>
+				Filtrando por: <strong th:text="${filtroActivo}"></strong> 
+			</p>
+			<a th:href="@{/blog}">✕ Quitar filtro</a>
+		</div>
+		</section>
+
+		<section class="post-grid">
+			<article class="post-card" th:each="post : ${posts}">
+				<div class="post-card-meta">
+					<span class="post-category" th:if="${post.category != null}"
+						th:text="${post.category.name}"> </span>
+					<time
+						th:text="${#temporals.format(post.publishedAt, 'dd MMM yyyy')}"
+						th:datetime="${post.publishedAt}"> </time>
+				</div>
+
+				<h2>
+					<a th:href="@{/blog/{slug}(slug=${post.slug})}"
+						th:text="${post.title}"> </a>
+				</h2>
+
+				<p th:text="${post.excerpt}"></p>
+			</article>
+
+			<p th:if="${posts.isEmpty()}">No hay publicaciones todavía.</p>
+		</section>
+
+		<nav class="pagination" th:if="${posts.totalPages > 1}">
+			<a th:if="${!posts.first}"
+				th:href="${(paginadorBase ?: '/blog') + '?page=' + (posts.number - 1)}">
+				Anterior </a> <span
+				th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
+				<a th:href="${(paginadorBase ?: '/blog') + '?page=' + i}"
+				th:text="${i + 1}" th:classappend="${i == posts.number} ? 'active'">
+			</a>
+			</span> <a th:if="${!posts.last}"
+				th:href="${(paginadorBase ?: '/blog') + '?page=' + (posts.number + 1)}">
+				Siguiente</a>
+		</nav>
+	</div>
+	
+</body>
+</html>

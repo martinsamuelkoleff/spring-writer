@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase.Replace;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
@@ -100,5 +102,15 @@ public class SpringJpaTestPostRepository {
 		assertNotNull(posts);
 		assertEquals(posts.size(), 3);
 	}
-
+	
+	
+	@Test
+	void testPostsByCategoryId_shouldRetrieveTwoPost() {
+		
+		Page<Post> posts = postRepository.findByStatusAndCategoryId(PostStatus.PUBLISHED, UUID.fromString("a1b2c3d4-0002-0000-0000-000000000002"), PageRequest.ofSize(2));
+		
+		assertEquals(posts.getSize(), 2);
+		
+		posts.forEach(p -> logger.info("Post By Category: " + p.toString()));
+	}
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/base :: layout(~{::title}, ~{::content}, ~{::styles})}">
+<head>
+<title>Spring Writer</title>
+
+<th:block th:fragment="styles">
+	<link rel="stylesheet" th:href="@{/css/home.css}" />
+</th:block>
+</head>
+<body>
+
+	<div th:fragment="content">
+
+		<section class="hero">
+			<h1>
+				<span class="color-green-base">Spring</span>Writer
+			</h1>
+			<p>Publicaciones sobre desarrollo backend, Java y Spring Boot.</p>
+			<a th:href="@{/blog}">
+				Explorar el blog
+			</a>
+		</section>
+
+		<section class="recent-posts">
+			<h2>Publicaciones recientes</h2>
+
+			<div class="post-grid" th:if="${!posts.isEmpty()}">
+				<article class="post-card" th:each="post : ${posts}">
+
+					<div class="post-card-meta">
+						<span class="post-category" th:if="${post.category != null}"
+							th:text="${post.category.name}"> </span>
+						<time
+							th:text="${#temporals.format(post.publishedAt, 'dd MMM yyyy')}"
+							th:datetime="${post.publishedAt}"> </time>
+					</div>
+
+					<h3>
+						<a th:href="@{/blog/{slug}(slug=${post.slug})}"
+							th:text="${post.title}"> </a>
+					</h3>
+
+					<p th:text="${post.excerpt}"></p>
+
+				</article>
+			</div>
+
+			<p th:if="${posts.isEmpty()}">No hay publicaciones todavía.</p>
+
+			<a class="see-all" th:href="@{/blog}">Ver todas las publicaciones</a>
+		</section>
+
+		<section class="about">
+
+			<div class="about-content">
+
+				<img src="/images/about-image.jpg" alt="Autor de Spring Writer"
+					class="about-image" />
+
+				<div class="about-text">
+					<h2>¿Qué es <span class="color-green-base">Spring</span>Writer?</h2>
+
+					<p>Spring Writer es un blog enfocado en desarrollo backend con
+						Java y Spring Boot. Acá comparto experiencias reales, buenas
+						prácticas y aprendizajes construyendo aplicaciones.</p>
+
+					<p>La idea es explicar conceptos de forma simple, con
+						ejemplos claros y aplicables en proyectos reales.</p>
+
+					<p class="about-author">
+						- Escrito por <strong>Martin Koleff</strong>
+					</p>
+
+				</div>
+
+			</div>
+
+		</section>
+
+	</div>
+
+</body>
+</html>
