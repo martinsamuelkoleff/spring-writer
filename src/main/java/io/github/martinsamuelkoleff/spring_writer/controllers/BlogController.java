@@ -49,7 +49,7 @@ public class BlogController {
 				);
 		model.addAttribute("categories", categoryService.getCategories());
 	    model.addAttribute("tags", tagService.getTags());
-		return "/blog/list";
+		return "blog/list";
 	}
 	
 	@GetMapping("/blog/category/{slug}")
@@ -65,7 +65,7 @@ public class BlogController {
 	    model.addAttribute("paginadorBase", "/blog/category/" + slug);
 	    model.addAttribute("categories", categoryService.getCategories());
 	    model.addAttribute("tags", tagService.getTags());
-	    return "/blog/list";
+	    return "blog/list";
 	}
 
 	@GetMapping("/blog/tag/{slug}")
@@ -81,7 +81,7 @@ public class BlogController {
 	    model.addAttribute("paginadorBase", "/blog/tag/" + slug);
 	    model.addAttribute("categories", categoryService.getCategories());
 	    model.addAttribute("tags", tagService.getTags());
-	    return "/blog/list";
+	    return "blog/list";
 	}
 	
 	@GetMapping("/blog/{slug}")
@@ -98,7 +98,7 @@ public class BlogController {
 	    		);
 	    model.addAttribute("markdownContent", post.get().contentMd());
 
-	    return "/blog/post";
+	    return "blog/post";
 	}
 	
 }

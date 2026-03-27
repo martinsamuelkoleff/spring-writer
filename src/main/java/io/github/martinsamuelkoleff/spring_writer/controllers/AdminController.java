@@ -39,7 +39,7 @@ public class AdminController {
 	
     @GetMapping("/admin")
     public String getRoot() {
-        return "/admin/dashboard";
+        return "admin/dashboard";
     }
 
     
@@ -48,14 +48,14 @@ public class AdminController {
         model.addAttribute("posts", postService.getPosts(
             PageRequest.of(page, 15, Sort.by(Direction.DESC, "createdAt"))
         ));
-        return "/admin/posts";
+        return "admin/posts";
     }
 
     @GetMapping("/admin/posts/new")
     public String getNewPostForm(Model model) {
         model.addAttribute("categories", categoryService.getCategories());
         model.addAttribute("tags",       tagService.getTags());
-        return "/admin/post-form";
+        return "admin/post-form";
     }
 
     @PostMapping("/admin/posts/new")
@@ -70,7 +70,7 @@ public class AdminController {
 				postService.getPostById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 		model.addAttribute("categories", categoryService.getCategories());
 		model.addAttribute("tags", tagService.getTags());
-		return "/admin/post-form";
+		return "admin/post-form";
 	}
 
 	@PostMapping("/admin/posts/{id}/edit")
@@ -92,7 +92,7 @@ public class AdminController {
             PageRequest.of(page, 20, Sort.by(Direction.DESC, "createdAt"))
         ));
         model.addAttribute("postId", id);
-        return "/admin/comments";
+        return "admin/comments";
     }
 
     @PostMapping("/admin/posts/{postId}/comments/{commentId}/approve")
