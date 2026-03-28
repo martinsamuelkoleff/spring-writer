@@ -16,9 +16,23 @@ a:hover {
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    flex-direction:column;
+    row-gap: 1em;
+    /*
+    flex-direction: row;
+    justify-content: space-between;*/
     padding: 0.5em 1.5em;
 }
+
+@media (min-width: 768px) { 
+	
+	header {
+	flex-direction: row;
+    justify-content: space-between;
+	}
+	
+}
+
 
 .header-logo {
     display: flex;
