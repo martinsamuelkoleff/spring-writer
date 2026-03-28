@@ -36,7 +36,7 @@ public class SeoController {
 
         for (Post post : posts) {
             sb.append("<url>")
-              .append("<loc>https://springwriter.com/posts/")
+              .append("<loc>https://springwriter.com/blog/")
               .append(post.getSlug())
               .append("</loc>")
               .append("<changefreq>monthly</changefreq>")
