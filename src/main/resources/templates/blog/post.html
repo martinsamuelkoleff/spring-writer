@@ -65,7 +65,7 @@
          <div class="comment-form">
             <h3>Dejá un comentario</h3>
 
-            <form th:action="@{'/blog/' + ${post.slug} + '/comments'}" method="post" onsubmit="alert('Tu comentario fue enviado y está pendiente de aprobación.')">
+            <form th:action="@{/blog/{slug}/comments(slug=${post.slug})}" method="post" onsubmit="alert('Tu comentario fue enviado y está pendiente de aprobación.')">
                 
                 <div class="form-group">
                     <label th:for="authorName">Nombre</label>
