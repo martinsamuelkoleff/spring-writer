@@ -24,6 +24,11 @@ public class HomeController {
 		model.addAttribute("posts", postService.getPublishedPosts(
 				PageRequest.of(0, 4,Sort.by(Direction.DESC, "publishedAt")))
 				);
+		
+		model.addAttribute("pageTitle", "SpringWriter");
+		model.addAttribute("pageDescription", "Blog sobre desarrollo backend con Java y Spring Boot.");
+	    model.addAttribute("currentUrl", "https://springwriter.com/");
+	    
 		return "home";
 	}
 	

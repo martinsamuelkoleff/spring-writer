@@ -2,7 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, content, styles)">
 <head>
 
-   	<title th:replace="${title}">Spring Writer</title>
+   	<title th:text="${pageTitle} + ' | SpringWriter'">SpringWriter</title>
+	<meta name="description" th:content="${pageDescription}">
+	<meta property="og:title" th:content="${pageTitle}">
+	<meta property="og:description" th:content="${pageDescription}">
+	<link rel="canonical" th:href="${currentUrl}">
+	
    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	    <link rel="icon" type="image/x-icon" href="/images/spring-writer-logo.png">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>

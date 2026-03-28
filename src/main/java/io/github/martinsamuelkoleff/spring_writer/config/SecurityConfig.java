@@ -31,7 +31,9 @@ public class SecurityConfig {
             			    "/blog/**",
             			    "/css/**",
             			    "/js/**",
-            			    "/images/**"
+            			    "/images/**",
+            		        "/sitemap.xml",
+            		        "/robots.txt"
             			).permitAll()
                 .anyRequest().authenticated()
             );

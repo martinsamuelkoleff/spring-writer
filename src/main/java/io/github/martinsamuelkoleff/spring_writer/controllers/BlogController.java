@@ -49,6 +49,11 @@ public class BlogController {
 				);
 		model.addAttribute("categories", categoryService.getCategories());
 	    model.addAttribute("tags", tagService.getTags());
+	    
+	    model.addAttribute("pageTitle", "Blog");
+	    model.addAttribute("pageDescription", "Artículos sobre desarrollo backend con Java, Spring Boot y Spring Framework.");
+	    model.addAttribute("currentUrl", "https://springwriter.com/blog");
+	   
 		return "blog/list";
 	}
 	
@@ -65,6 +70,11 @@ public class BlogController {
 	    model.addAttribute("paginadorBase", "/blog/category/" + slug);
 	    model.addAttribute("categories", categoryService.getCategories());
 	    model.addAttribute("tags", tagService.getTags());
+	    
+	    model.addAttribute("pageTitle", category.name());
+	    model.addAttribute("pageDescription", "Posts de la categoría " + category.name() + " en SpringWriter.");
+	    model.addAttribute("currentUrl", "https://springwriter.com/blog/category/" + slug);
+	    
 	    return "blog/list";
 	}
 
@@ -81,6 +91,11 @@ public class BlogController {
 	    model.addAttribute("paginadorBase", "/blog/tag/" + slug);
 	    model.addAttribute("categories", categoryService.getCategories());
 	    model.addAttribute("tags", tagService.getTags());
+	    
+	    model.addAttribute("pageTitle", tag.name());
+	    model.addAttribute("pageDescription", "Posts sobre " + tag.name() + " en SpringWriter.");
+	    model.addAttribute("currentUrl", "https://springwriter.com/blog/tag/" + slug);
+	    
 	    return "blog/list";
 	}
 	
@@ -97,7 +112,12 @@ public class BlogController {
 	    		PageRequest.of(page, 5,Sort.by(Direction.DESC, "createdAt")))
 	    		);
 	    model.addAttribute("markdownContent", post.get().contentMd());
-
+	    
+	    model.addAttribute("pageTitle", post.get().title());
+	    model.addAttribute("pageDescription", post.get().excerpt());
+	    model.addAttribute("currentUrl", "https://springwriter.com/blog/" + slug);
+	    
+	    
 	    return "blog/post";
 	}
 	

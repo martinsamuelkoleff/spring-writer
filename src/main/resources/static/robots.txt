@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /actuator/
+
+Sitemap: https://springwriter.com/sitemap.xml
