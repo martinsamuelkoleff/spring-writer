@@ -20,6 +20,7 @@ import io.github.martinsamuelkoleff.spring_writer.services.CategoryService;
 import io.github.martinsamuelkoleff.spring_writer.services.CommentService;
 import io.github.martinsamuelkoleff.spring_writer.services.PostService;
 import io.github.martinsamuelkoleff.spring_writer.services.TagService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminController {
@@ -38,8 +39,10 @@ public class AdminController {
     }
 	
     @GetMapping("/admin")
-    public String getRoot() {
-        return "admin/dashboard";
+    public String getRoot(Model model) {
+        model.addAttribute("pageTitle", "Dashboard");
+	
+	    return "admin/dashboard";
     }
 
     
@@ -48,6 +51,9 @@ public class AdminController {
         model.addAttribute("posts", postService.getPosts(
             PageRequest.of(page, 15, Sort.by(Direction.DESC, "createdAt"))
         ));
+        
+        model.addAttribute("pageTitle", "Publicaciones");
+     
         return "admin/posts";
     }
 
@@ -55,6 +61,8 @@ public class AdminController {
     public String getNewPostForm(Model model) {
         model.addAttribute("categories", categoryService.getCategories());
         model.addAttribute("tags",       tagService.getTags());
+        
+        model.addAttribute("pageTitle", "Crear nueva publicación");
         return "admin/post-form";
     }
 
@@ -70,6 +78,8 @@ public class AdminController {
 				postService.getPostById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 		model.addAttribute("categories", categoryService.getCategories());
 		model.addAttribute("tags", tagService.getTags());
+		
+		model.addAttribute("pageTitle", "Editar publicación");
 		return "admin/post-form";
 	}
 
@@ -92,6 +102,7 @@ public class AdminController {
             PageRequest.of(page, 20, Sort.by(Direction.DESC, "createdAt"))
         ));
         model.addAttribute("postId", id);
+        model.addAttribute("pageTitle", "Comentarios");
         return "admin/comments";
     }
 
