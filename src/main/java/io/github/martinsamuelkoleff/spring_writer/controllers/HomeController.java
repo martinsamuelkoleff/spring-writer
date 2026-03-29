@@ -27,7 +27,7 @@ public class HomeController {
 		
 		model.addAttribute("pageTitle", "Home");
 		model.addAttribute("pageDescription", "Blog sobre desarrollo backend con Java y Spring Boot.");
-	    model.addAttribute("currentUrl", "https://springwriter.com/");
+	    model.addAttribute("currentUrl", "https://springwriter.com");
 	    
 		return "home";
 	}

@@ -4,8 +4,8 @@
 
    	<title th:text="${pageTitle} + ' | SpringWriter'">SpringWriter</title>
 	<meta name="description" th:content="${pageDescription}">
-	<meta property="og:title" th:content="${pageTitle}">
-	<meta property="og:description" th:content="${pageDescription}">
+	<meta th:attr="property='og:title'" th:content="${pageTitle}">
+	<meta th:attr="property='og:description'" th:content="${pageDescription}">
 	<link rel="canonical" th:href="${currentUrl}">
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/qtcreator-light.css">
