@@ -86,3 +86,11 @@ footer {
 .color-green-fresh{
 	color: #A8E08C;
 }
+
+table {
+	border-spacing: 1em;
+}
+
+pre {
+	border: 1px solid black;
+}

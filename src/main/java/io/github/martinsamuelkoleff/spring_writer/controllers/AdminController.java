@@ -20,7 +20,6 @@ import io.github.martinsamuelkoleff.spring_writer.services.CategoryService;
 import io.github.martinsamuelkoleff.spring_writer.services.CommentService;
 import io.github.martinsamuelkoleff.spring_writer.services.PostService;
 import io.github.martinsamuelkoleff.spring_writer.services.TagService;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminController {

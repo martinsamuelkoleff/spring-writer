@@ -3,10 +3,9 @@
 	th:replace="~{layouts/base :: layout(~{::title}, ~{::content}, ~{::styles})}">
 <head>
 <title>Spring Writer</title>
-
-<th:block th:fragment="styles">
-	<link rel="stylesheet" th:href="@{/css/home.css}" />
-</th:block>
+	<th:block th:fragment="styles">
+		<link rel="stylesheet" th:href="@{/css/home.css}" />
+	</th:block>
 </head>
 <body>
 
