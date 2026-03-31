@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layouts/base :: layout(~{::title}, ~{::content}, ~{::styles})}">
+<head>
+<title>Spring Writer</title>
+
+<th:block th:fragment="styles">
+	<link rel="stylesheet" th:href="@{/css/admin-comments.css}" />
+</th:block>
+</head>
+<body>
+
+	<div th:fragment="content">
+		<section class="comments-section">
+		
+		<h2 class="comments-title">Comentarios pendientes</h2>
+		
+		<a class="back-link" href="javascript:history.back()">
+			Volver
+		</a>
+		
+		<div class="comments-list">
+
+		<div class="comment-item" th:each="comment : ${comments}">
+
+			<p th:text="${comment.postSlug}"></p>
+
+			<div class="comment-header">
+				<strong th:text="${comment.authorName}"></strong>
+				<span th:text="${comment.authorEmail}"></span>
+			</div>
+
+			<div class="comment-meta">
+				<time th:text="${#temporals.format(comment.createdAt, 'dd MMM yyyy HH:mm')}"
+					th:datetime="${comment.createdAt}">
+				</time>
+
+				<span th:text="${comment.status}"></span>
+			</div>
+
+			<p class="comment-body" th:text="${comment.body}"></p>
+
+			<div class="comment-actions">
+
+				<form th:action="@{/admin/posts/{postId}/comments/{commentId}/approve(postId=${comment.postId}, commentId=${comment.id})}"
+					method="POST"
+					onsubmit="return confirm('¿Estás seguro de que querés aprobar este comentario?');"
+					>
+					<button type="submit">Aprobar</button>
+				</form>
+
+				<form th:action="@{/admin/posts/{postId}/comments/{commentId}/delete(postId=${comment.postId}, commentId=${comment.id})}"
+					method="POST"
+					onsubmit="return confirm('¿Estás seguro de que querés eliminar este comentario?');"
+					>
+					<button type="submit">Eliminar</button>
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+	
+	<p th:if="${comments.isEmpty()}">
+		No hay comentarios pendientes
+	</p>
+	
+	<nav class="pagination" th:if="${comments.totalPages > 1}">
+
+		<a th:if="${!comments.first}"
+			th:href="@{admin/pending-comments(page=${comments.number - 1})}">
+			← Anterior
+		</a>
+
+		<span th:each="i : ${#numbers.sequence(0, comments.totalPages - 1)}">
+			<a th:href="@{admin/pending-comments(page=${i})}"
+				th:text="${i + 1}"
+				th:classappend="${i == comments.number} ? 'active'">
+			</a>
+		</span>
+
+		<a th:if="${!comments.last}"
+			th:href="@{admin/pending-comments(page=${comments.number + 1})}">
+			Siguiente →
+		</a>
+
+	</nav>
+		
+		</section>
+	</div>
+
+</body>
+</html>

@@ -15,4 +15,6 @@ public interface CommentRepository extends JpaRepository<Comment, UUID>{
 
 	Page<Comment> findAllByPostId(UUID id, Pageable pageable);
 	
+	Page<Comment> findAllByStatus(CommentStatus status, Pageable pageable);
+	
 }

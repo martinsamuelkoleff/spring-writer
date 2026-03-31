@@ -11,7 +11,9 @@ public record CommentDTO(
     String body,
     CommentStatus status,
     LocalDateTime createdAt,
-    String authorEmail
+    String authorEmail,
+    UUID postId,
+    String postSlug
 ) {
     public static CommentDTO from(Comment comment) {
         return new CommentDTO(
@@ -20,7 +22,9 @@ public record CommentDTO(
             comment.getBody(),
             comment.getStatus(),
             comment.getCreatedAt(),
-            comment.getAuthorEmail()
+            comment.getAuthorEmail(),
+            comment.getPost().getId(),
+            comment.getPost().getSlug()
         );
     }
 }

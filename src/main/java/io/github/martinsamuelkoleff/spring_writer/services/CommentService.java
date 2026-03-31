@@ -58,4 +58,8 @@ public class CommentService {
 	public Page<CommentDTO> getCommentsByPost(UUID id, Pageable pageable) {
 		return commentRepository.findAllByPostId(id, pageable).map(CommentDTO::from);
 	}
+	
+	public Page<CommentDTO> getPendingComments(Pageable pageable){
+		return commentRepository.findAllByStatus(CommentStatus.PENDING, pageable).map(CommentDTO::from);
+	}
 }
