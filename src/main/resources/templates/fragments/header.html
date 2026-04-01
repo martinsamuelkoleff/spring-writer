@@ -11,12 +11,8 @@
 		</div>
 
 		<nav class="header-nav">
-			<a th:href="@{/}">Inicio</a> <a th:href="@{/blog}">Blog</a>
-			 <a
-				sec:authorize="isAnonymous()" th:href="@{/admin}"> Login </a> 
-				<a
-				sec:authorize="isAuthenticated()" th:href="@{/admin}"> Dashboard
-			</a>
+			<a th:href="@{/}">Inicio</a> <a th:href="@{/blog}">Blog</a>	  
+			<a sec:authorize="isAuthenticated()" th:href="@{/admin}"> Dashboard</a>
 		</nav>
 	</header>
 
