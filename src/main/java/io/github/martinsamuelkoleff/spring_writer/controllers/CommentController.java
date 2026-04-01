@@ -26,6 +26,8 @@ public class CommentController {
 	@GetMapping("/admin/comments")
 	public String getPendingComments(Model model, @RequestParam(defaultValue = "0") int page) {
 		
+		model.addAttribute("pageTitle", "Comentarios pendientes");
+		
 		model.addAttribute("comments", 
 				commentService.getPendingComments( PageRequest.of(page, 20, Sort.by(Direction.DESC, "createdAt")))
 				);
