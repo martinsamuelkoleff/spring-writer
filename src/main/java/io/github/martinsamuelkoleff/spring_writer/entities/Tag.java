@@ -21,6 +21,17 @@ public class Tag {
 	@Column(nullable = false, unique = true)
 	private String slug;
 	
+	
+	public Tag() {
+		
+	}
+	
+	public Tag(UUID id, String name, String slug) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.slug = slug;
+	}
 	public UUID getId() {
 		return id;
 	}

@@ -21,6 +21,17 @@ public class Category {
 	@Column(nullable = false, unique = true)
 	private String slug;
 	
+	public Category() {
+		
+	}
+	
+	
+	public Category(UUID id, String name, String slug) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.slug = slug;
+	}
 	public UUID getId() {
 		return id;
 	}
