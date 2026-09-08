@@ -2,6 +2,7 @@ package io.github.martinsamuelkoleff.spring_writer.controllers;
 
 import java.util.List;
 
+import io.github.martinsamuelkoleff.spring_writer.entities.enums.PostStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class SeoController {
     @GetMapping(value = "/sitemap.xml", produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
     public String sitemap() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findByStatus(PostStatus.PUBLISHED);
 
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
